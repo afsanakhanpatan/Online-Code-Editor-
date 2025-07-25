@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Universal Code Editor</title>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <pre><header>  
+   __   __   __   ___     ___  __    ___  __   __  
+  /  ` /  \ |  \ |__     |__  |  \ |  |  /  \ |__) 
+  \__, \__/ |__/ |___    |___ |__/ |  |  \__/ |  \ 
+  </header></pre>
+  <div class="controls">
+    <label for="language">Select Language:</label>
+    <select id="language" onchange="toggleEditor()">
+      <option value="html">HTML/CSS/JS</option>
+      <option value="javascript">JavaScript</option>
+      <option value="python">Python</option>
+      <option value="c">C</option>
+      <option value="cpp">C++</option>
+      <option value="java">Java</option>
+    </select>
+    <button class="run-btn" onclick="runCode()">Run</button>
+    <button style="margin-left:auto;" class="run-btn" onclick="logout()">Logout</button>
+  </div>
+  <div class="editor">
+    <div class="code-block">
+      <label id="editor-label">Code</label>
+      <div id="web-editors" style="display: none;">
+        <textarea id="html-code" placeholder="HTML"></textarea><br />
+        <textarea id="css-code" placeholder="CSS"></textarea><br />
+        <textarea id="js-code" placeholder="JavaScript"></textarea>
+      </div>
+      <div id="code-editor-block">
+        <textarea id="code-editor" placeholder="Write your code..."></textarea>
+        <div id="java-hint" style="display: none;">⚠️ Java Hint: Class will be renamed to `Main` if not already.</div>
+      </div>
+    </div>
+    <div class="output-block">
+      <label>Output</label>
+      <iframe id="output-frame" style="display: none;"></iframe>
+      <pre id="output"></pre>
+    </div>
+  </div>
+  <script>
+    // Redirect to login if not authenticated
+if (!localStorage.getItem("user")) {
+  window.location.href = "login.html";
+}
+const langMap = {
+      "c": 50,
+      "cpp": 54,
+      "java": 62,
+      "python": 71,
+      "javascript": 63
+    };
+    function toggleEditor() {
+      const lang = document.getElementById("language").value;
+      const webEditors = document.getElementById("web-editors");
+      const codeEditorBlock = document.getElementById("code-editor-block");
+      const outputFrame = document.getElementById("output-frame");
+      const outputPre = document.getElementById("output");
+      const javaHint = document.getElementById("java-hint");
+      if (lang === "html") {
+        webEditors.style.display = "block";
+        codeEditorBlock.style.display = "none";
+        outputFrame.style.display = "block";
+        outputPre.style.display = "none";
+        javaHint.style.display = "none";
+      } else {
+        webEditors.style.display = "none";
+        codeEditorBlock.style.display = "block";
+        outputFrame.style.display = "none";
+        outputPre.style.display = "block";
+        javaHint.style.display = (lang === "java") ? "block" : "none";
+      }
+    }
+    function runCode() {
+      const lang = document.getElementById("language").value;
+      const output = document.getElementById("output");
+      const iframe = document.getElementById("output-frame");
+      if (lang === "html") {
+        const html = document.getElementById("html-code").value;
+        const css = document.getElementById("css-code").value;
+        const js = document.getElementById("js-code").value;
+        const content = `
+          <html>
+            <head><style>${css}</style></head>
+            <body>${html}<script>${js}<\/script></body>
+          </html>`;
+        iframe.srcdoc = content;
+      } else {
+        let code = document.getElementById("code-editor").value;
+        if (lang === "java") {
+          const match = code.match(/class\s+(\w+)/);
+          if (match && match[1] !== "Main") {
+            const className = match[1];
+            const regex = new RegExp(`\\b${className}\\b`, "g");
+            code = code.replace(regex, "Main");
+          }
+        }
+        output.textContent = "Running...";
+        fetch("https://judge0-ce.p.rapidapi.com/submissions?base64_encoded=false&wait=true", {
+          method: "POST",
+          headers: {
+            "content-type": "application/json",
+            "X-RapidAPI-Key": "0d404c0408msh10c6f3dd5852773p179ee6jsn3f8491618dc4",
+            "X-RapidAPI-Host": "judge0-ce.p.rapidapi.com"
+          },
+          body: JSON.stringify({
+            source_code: code,
+            language_id: langMap[lang]
+          })
+        })
+        .then(res => res.json())
+        .then(data => {
+          output.textContent = data.stdout || data.stderr || data.compile_output || "No output.";
+        })
+        .catch(err => {
+          output.textContent = "Error: " + err.message;
+        });
+      }
+    }
+    function logout() {
+  localStorage.removeItem("user");
+  window.location.href = "login.html";
+}
+    window.onload = toggleEditor;
+  </script>
+</body>
+</html>

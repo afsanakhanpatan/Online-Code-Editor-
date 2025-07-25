@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Register - Universal Code Editor</title>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    body {
+      font-family: 'Fira Code', monospace;
+      background: #0f111a;
+      color: #e0e8f0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+    .register-container {
+      background: #1c1f2e;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 0 15px rgba(0, 114, 255, 0.2);
+      max-width: 400px;
+      width: 100%;
+    }
+    .register-container h2 {
+      color: #00c6ff;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .register-container input {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 15px;
+      border: 2px solid #0072ff66;
+      border-radius: 8px;
+      background: #0f111a;
+      color: #e0e8f0;
+      font-size: 1rem;
+    }
+    .register-container button {
+      width: 100%;
+      padding: 12px;
+      background: linear-gradient(90deg, #00c6ff, #0072ff);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-weight: bold;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+    .password-wrapper {
+      position: relative;
+    }
+    .toggle-password {
+      position: absolute;
+      right: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      cursor: pointer;
+      color: #ccc;
+    }
+  </style>
+</head>
+<body>
+  <div class="register-container">
+    <h2>Register</h2>
+    <input type="text" id="reg-username" placeholder="Username" required />
+
+    <div class="password-wrapper">
+      <input type="password" id="reg-password" placeholder="Password" required />
+      <span class="toggle-password" onclick="toggleVisibility('reg-password', this)">
+        <i class="fa-regular fa-eye-slash"></i>
+      </span>
+    </div>
+
+    <div class="password-wrapper">
+      <input type="password" id="reg-confirm" placeholder="Confirm Password" required />
+      <span class="toggle-password" onclick="toggleVisibility('reg-confirm', this)">
+        <i class="fa-regular fa-eye-slash"></i>
+      </span>
+    </div>
+
+    <button onclick="register()">Create Account</button>
+  </div>
+
+  <script>
+    function toggleVisibility(id, icon) {
+      const field = document.getElementById(id);
+      const isPassword = field.type === "password";
+      field.type = isPassword ? "text" : "password";
+
+      const iTag = icon.querySelector("i");
+      iTag.classList.toggle("fa-eye");
+      iTag.classList.toggle("fa-eye-slash");
+    }
+
+    function validatePassword(password) {
+      const minLength = 6;
+      const hasNumber = /[0-9]/.test(password);
+      const hasSpecialChar = /[!@#$%^&*(),.?":{}|<>]/.test(password);
+      return password.length >= minLength && hasNumber && hasSpecialChar;
+    }
+
+    function register() {
+      const username = document.getElementById("reg-username").value.trim();
+      const password = document.getElementById("reg-password").value.trim();
+      const confirm = document.getElementById("reg-confirm").value.trim();
+
+      if (!username || !password || !confirm) {
+        alert("Please fill in all fields.");
+        return;
+      }
+
+      if (password !== confirm) {
+        alert("Passwords do not match.");
+        return;
+      }
+
+      if (!validatePassword(password)) {
+        alert("Password must be at least 6 characters long, include a number and a special character.");
+        return;
+      }
+
+      localStorage.setItem("registeredUser", username);
+      localStorage.setItem("registeredPass", password);
+      alert("Account created successfully! Please sign in.");
+      window.location.href = "login.html";
+    }
+  </script>
+</body>
+</html>

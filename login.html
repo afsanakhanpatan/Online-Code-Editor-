@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Sign In - Universal Code Editor</title>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    .login-container {
+      max-width: 400px;
+      margin: 100px auto;
+      background: #1c1f2e;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 0 15px rgba(0, 114, 255, 0.2);
+    }
+    .login-container h2 {
+      color: #00c6ff;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .login-container input {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 15px;
+      border: 2px solid #0072ff66;
+      border-radius: 8px;
+      background: #0f111a;
+      color: #e0e8f0;
+      font-size: 1rem;
+    }
+    .login-container input:focus {
+      border: 1px solid #00c6ff;
+      box-shadow: 0 0 10px #00c6ff88;
+      outline: none;
+    }
+    .login-container button {
+      width: 100%;
+      padding: 12px;
+      background: linear-gradient(90deg, #00c6ff, #0072ff);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-weight: bold;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background 0.3s ease-in-out;
+    }
+    .login-container button:hover {
+      background: linear-gradient(90deg, #0072ff, #00c6ff);
+    }
+  </style>
+</head>
+<body>
+  <div class="login-container">
+    <h2>Sign In</h2>
+    <input type="text" id="username" placeholder="Username" required />
+    <input type="password" id="password" placeholder="Password" required />
+    <button onclick="signIn()">Sign In</button>
+    <p style="text-align: center; margin-top: 10px;">
+  <a href="register.html" style="color:#8ab4f8;">Don't have an account? Register here</a>
+</p>
+<p style="text-align: center; margin-top: 5px;">
+  <a href="forgot.html" style="color:#8ab4f8;">Forgot password?</a>
+</p>
+
+
+  </div>
+
+  <script>
+    function signIn() {
+  const username = document.getElementById("username").value.trim();
+  const password = document.getElementById("password").value.trim();
+
+  const savedUser = localStorage.getItem("registeredUser");
+  const savedPass = localStorage.getItem("registeredPass");
+
+  if (username === savedUser && password === savedPass) {
+    localStorage.setItem("user", username);
+    window.location.href = "index.html";
+  } else {
+    alert("Invalid credentials. Please try again.");
+  }
+}
+
+  </script>
+</body>
+</html>
+
