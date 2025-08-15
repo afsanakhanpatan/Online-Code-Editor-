@@ -1,0 +1,414 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "provenance": [],
+      "authorship_tag": "ABX9TyPMnIvOHwIEnUSRJ5BoUnV/",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/afsanakhanpatan/Online-Code-Editor-/blob/main/python%20codes\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": 3,
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "-yCt_aDNBQ99",
+        "outputId": "8c7e5d78-bbc5-4f81-d56b-1e2edcfd3b91"
+      },
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Enter a string: I'm Afsana\n",
+            "Reversed string: anasfA m'I\n"
+          ]
+        }
+      ],
+      "source": [
+        "# Reverse a string without using built-in reverse\n",
+        "string = input(\"Enter a string: \")\n",
+        "\n",
+        "reversed_string = \"\"\n",
+        "\n",
+        "# Loop through string in reverse order using index\n",
+        "for i in range(len(string) - 1, -1, -1):\n",
+        "    reversed_string += string[i]\n",
+        "\n",
+        "print(\"Reversed string:\", reversed_string)\n"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# Check if a string is palindrome\n",
+        "string = input(\"Enter a string: \")\n",
+        "\n",
+        "# Convert to lowercase to make it case-insensitive\n",
+        "string = string.lower()\n",
+        "\n",
+        "# Remove spaces (optional, for ignoring spaces in phrases)\n",
+        "string = string.replace(\" \", \"\")\n",
+        "\n",
+        "# Check palindrome using indexing\n",
+        "if string == string[::-1]:\n",
+        "    print(\"The string is a palindrome.\")\n",
+        "else:\n",
+        "    print(\"The string is not a palindrome.\")\n"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "1oP1jXeRDXkX",
+        "outputId": "66f76922-d536-4463-f861-68d114589253"
+      },
+      "execution_count": 5,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Enter a string: racecar\n",
+            "The string is a palindrome.\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# Count vowels and consonants in a string\n",
+        "string = input(\"Enter a string: \")\n",
+        "\n",
+        "# Convert to lowercase to handle both cases\n",
+        "string = string.lower()\n",
+        "\n",
+        "# Define vowels\n",
+        "vowels_list = \"aeiou\"\n",
+        "\n",
+        "# Initialize counters\n",
+        "vowels = 0\n",
+        "consonants = 0\n",
+        "\n",
+        "# Loop through each character in the string\n",
+        "for char in string:\n",
+        "    if char.isalpha():  # Only consider letters\n",
+        "        if char in vowels_list:\n",
+        "            vowels += 1\n",
+        "        else:\n",
+        "            consonants += 1\n",
+        "\n",
+        "# Print results\n",
+        "print(\"Number of vowels:\", vowels)\n",
+        "print(\"Number of consonants:\", consonants)\n"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "YhqiLh67EDza",
+        "outputId": "c4ac50aa-7c19-41aa-b4e4-4152febd814f"
+      },
+      "execution_count": 6,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Enter a string: Hello world\n",
+            "Number of vowels: 3\n",
+            "Number of consonants: 7\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# Remove all spaces from a string\n",
+        "string = input(\"Enter a string: \")\n",
+        "\n",
+        "# Replace spaces with empty string\n",
+        "no_spaces = string.replace(\" \", \"\")\n",
+        "\n",
+        "print(\"String without spaces:\", no_spaces)\n",
+        "\n"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "3uAVQwHNEoLz",
+        "outputId": "614da227-3096-432f-cd8c-0c8092ff5435"
+      },
+      "execution_count": 10,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Enter a string: I am Afsana Khan\n",
+            "String without spaces: IamAfsanaKhan\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# Count frequency of each character in a string\n",
+        "string = input(\"Enter a string: \")\n",
+        "\n",
+        "# Create an empty dictionary\n",
+        "freq = {}\n",
+        "\n",
+        "for char in string:\n",
+        "    freq[char] = freq.get(char, 0) + 1  # Increment count\n",
+        "\n",
+        "# Print character frequencies\n",
+        "for key, value in freq.items():\n",
+        "    print(f\"'{key}': {value}\")\n"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "uIIVUcBVFRJm",
+        "outputId": "775f8353-ac50-4dec-cd99-5287b2060dca"
+      },
+      "execution_count": 11,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Enter a string: Afsana\n",
+            "'A': 1\n",
+            "'f': 1\n",
+            "'s': 1\n",
+            "'a': 2\n",
+            "'n': 1\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# Check if a number is prime\n",
+        "num = int(input(\"Enter a number: \"))\n",
+        "\n",
+        "# Prime numbers are greater than 1\n",
+        "if num > 1:\n",
+        "    is_prime = True\n",
+        "    for i in range(2, int(num**0.5) + 1):  # Check up to sqrt(num)\n",
+        "        if num % i == 0:\n",
+        "            is_prime = False\n",
+        "            break\n",
+        "    if is_prime:\n",
+        "        print(f\"{num} is a prime number.\")\n",
+        "    else:\n",
+        "        print(f\"{num} is not a prime number.\")\n",
+        "else:\n",
+        "    print(f\"{num} is not a prime number.\")\n"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "M0cNKakPFhcq",
+        "outputId": "01b61b92-ab5c-4e01-93cd-3ae9b20de827"
+      },
+      "execution_count": 12,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Enter a number: 7\n",
+            "7 is a prime number.\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# Find factorial using a loop\n",
+        "num = int(input(\"Enter a number: \"))\n",
+        "\n",
+        "factorial = 1\n",
+        "\n",
+        "if num < 0:\n",
+        "    print(\"Factorial does not exist for negative numbers.\")\n",
+        "elif num == 0:\n",
+        "    print(\"The factorial of 0 is 1.\")\n",
+        "else:\n",
+        "    for i in range(1, num + 1):\n",
+        "        factorial *= i\n",
+        "    print(f\"The factorial of {num} is {factorial}\")\n"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "BtEK-XEUFvVL",
+        "outputId": "3e7f5249-5509-4da2-fdbe-cb1047e02099"
+      },
+      "execution_count": 13,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Enter a number: 3\n",
+            "The factorial of 3 is 6\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# Fibonacci series using loop\n",
+        "n = int(input(\"Enter the number of terms: \"))\n",
+        "\n",
+        "a, b = 0, 1\n",
+        "\n",
+        "if n <= 0:\n",
+        "    print(\"Please enter a positive integer.\")\n",
+        "elif n == 1:\n",
+        "    print(\"Fibonacci series:\", a)\n",
+        "else:\n",
+        "    print(\"Fibonacci series:\", end=\" \")\n",
+        "    for _ in range(n):\n",
+        "        print(a, end=\" \")\n",
+        "        a, b = b, a + b\n"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "jGgWB3F9GAHG",
+        "outputId": "c4bf83d6-2776-4647-eec1-546f8fca9434"
+      },
+      "execution_count": 14,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Enter the number of terms: 7\n",
+            "Fibonacci series: 0 1 1 2 3 5 8 "
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# Sum of digits using loop\n",
+        "num = int(input(\"Enter a number: \"))\n",
+        "\n",
+        "sum_digits = 0\n",
+        "temp = abs(num)  # Handle negative numbers\n",
+        "\n",
+        "while temp > 0:\n",
+        "    digit = temp % 10\n",
+        "    sum_digits += digit\n",
+        "    temp //= 10\n",
+        "\n",
+        "print(f\"Sum of digits of {num} is {sum_digits}\")\n"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "pJkkJh15GPAt",
+        "outputId": "3947b857-80ac-4987-f554-994f53b1d478"
+      },
+      "execution_count": 15,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Enter a number: 1234\n",
+            "Sum of digits of 1234 is 10\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# Reverse digits using loop\n",
+        "num = int(input(\"Enter a number: \"))\n",
+        "\n",
+        "negative = num < 0\n",
+        "num = abs(num)  # Work with positive equivalent\n",
+        "\n",
+        "reverse_num = 0\n",
+        "\n",
+        "while num > 0:\n",
+        "    digit = num % 10\n",
+        "    reverse_num = reverse_num * 10 + digit\n",
+        "    num //= 10\n",
+        "\n",
+        "if negative:\n",
+        "    reverse_num = -reverse_num\n",
+        "\n",
+        "print(\"Reversed number:\", reverse_num)\n"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "4v9fQ7xlGccn",
+        "outputId": "fba98c33-0d0a-4827-c199-7647c3616aad"
+      },
+      "execution_count": 16,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Enter a number: 123\n",
+            "Reversed number: 321\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [],
+      "metadata": {
+        "id": "AWVynDT6Hvuz"
+      },
+      "execution_count": null,
+      "outputs": []
+    }
+  ]
+}
